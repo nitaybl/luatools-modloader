@@ -80,21 +80,33 @@ def GetModFile(mod_id: str, filename: str):
     """Serve a specific file from a mod's directory"""
     _ensure_mods_dir()
     
-    # Security: prevent directory traversal
+    # Security: block directory traversal and encoded slashes
     if '..' in filename or '..' in mod_id:
+        return ''
+    if '/' in mod_id or '\\' in mod_id:
+        return ''
+    if '/' in filename or '\\' in filename:
         return ''
 
     # Check folder mod first
     folder_path = os.path.join(MODS_DIR, mod_id, filename)
-    if os.path.isfile(folder_path):
-        with open(folder_path, 'r', encoding='utf-8') as f:
+    # Realpath containment: ensure resolved path is still inside mods/
+    real_mods = os.path.realpath(MODS_DIR)
+    real_target = os.path.realpath(folder_path)
+    if not real_target.startswith(real_mods):
+        return ''
+    if os.path.isfile(real_target):
+        with open(real_target, 'r', encoding='utf-8') as f:
             return f.read()
 
     # Check single-file mod
     if filename.endswith('.js'):
         single_path = os.path.join(MODS_DIR, filename)
-        if os.path.isfile(single_path):
-            with open(single_path, 'r', encoding='utf-8') as f:
+        real_single = os.path.realpath(single_path)
+        if not real_single.startswith(real_mods):
+            return ''
+        if os.path.isfile(real_single):
+            with open(real_single, 'r', encoding='utf-8') as f:
                 return f.read()
 
     return ''
