@@ -1,0 +1,12 @@
+{
+    "id": "cyberpunk-theme",
+    "name": "Cyberpunk Theme",
+    "version": "1.0.0",
+    "author": "nitaybl",
+    "description": "Applies a neon cyberpunk visual overhaul to the LuaTools overlay with gradients, glows, and animated borders.",
+    "main": "mod.js",
+    "style": "style.css",
+    "hooks": ["onOverlayOpen"],
+    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "minLuaToolsVersion": "7.1"
+}

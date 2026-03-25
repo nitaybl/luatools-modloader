@@ -1,0 +1,9 @@
+/* Cyberpunk Theme - Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* Apply Orbitron font to overlay headers */
+[id*="lt-overlay"] div[style*="font-size:24px"],
+[id*="lt-overlay"] div[style*="font-size:20px"] {
+    font-family: 'Orbitron', sans-serif !important;
+    letter-spacing: 1px !important;
+}

@@ -1,0 +1,11 @@
+{
+    "id": "quick-actions",
+    "name": "Quick Actions Bar",
+    "version": "1.0.0",
+    "author": "nitaybl",
+    "description": "Adds a row of quick-action buttons to the overlay: copy AppID, open install folder, open SteamDB, and check PCGamingWiki.",
+    "main": "mod.js",
+    "hooks": ["onOverlayOpen"],
+    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "minLuaToolsVersion": "7.1"
+}

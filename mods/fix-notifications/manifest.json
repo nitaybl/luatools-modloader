@@ -1,0 +1,11 @@
+{
+    "id": "fix-notifications",
+    "name": "Fix Notifications",
+    "version": "1.0.0",
+    "author": "nitaybl",
+    "description": "Shows desktop-style toast notifications when fixes are applied, failed, or downloaded. Includes sound feedback.",
+    "main": "mod.js",
+    "hooks": ["onFixApplied", "onFixFailed", "onDownloadStart", "onDownloadComplete"],
+    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "minLuaToolsVersion": "7.1"
+}
