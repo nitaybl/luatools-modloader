@@ -243,7 +243,3 @@ Want to share your mod with the community?
 MIT License. See [LICENSE](LICENSE) for details.
 
 ---
-
-<p align="center">
-  Only possible thanks to <a href="https://github.com/ShayneVi">ShayneVi</a> & <a href="https://github.com/nitaybl">nitaybl</a> 💜
-</p>
