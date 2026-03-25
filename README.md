@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="assets/banner.png" alt="LuaTools Mod Loader" width="100%">
+  <img src="assets/banner.png" alt="Kite" width="100%">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nitaybl/luatools-modloader/stargazers"><img src="https://img.shields.io/github/stars/nitaybl/luatools-modloader?style=for-the-badge&color=00ffff&labelColor=0d1117" alt="Stars"></a>
-  <a href="https://nitaybl.gitbook.io/luatools-modloader"><img src="https://img.shields.io/badge/Documentation-8b5cf6?style=for-the-badge&logo=gitbook&logoColor=white&labelColor=0d1117" alt="Docs"></a>
+  <a href="https://github.com/nitaybl/kite/stargazers"><img src="https://img.shields.io/github/stars/nitaybl/kite?style=for-the-badge&color=00ffff&labelColor=0d1117" alt="Stars"></a>
+  <a href="https://nitaybl.gitbook.io/kite"><img src="https://img.shields.io/badge/Documentation-8b5cf6?style=for-the-badge&logo=gitbook&logoColor=white&labelColor=0d1117" alt="Docs"></a>
   <a href="#"><img src="https://img.shields.io/badge/Version-v1.0.0-4ade80?style=for-the-badge&labelColor=0d1117" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-ff6b6b?style=for-the-badge&labelColor=0d1117" alt="License"></a>
 </p>
@@ -27,7 +27,7 @@
 
 ### Option 1: One-Line Install (Recommended)
 ```powershell
-irm https://raw.githubusercontent.com/nitaybl/luatools-modloader/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/nitaybl/kite/main/install.ps1 | iex
 luatools install
 ```
 
@@ -41,7 +41,7 @@ luatools install
 
 ## 📖 Documentation
 
-Full guides, API reference, and examples at **[GitBook →](https://nitaybl.gitbook.io/luatools-modloader)**
+Full guides, API reference, and examples at **[GitBook →](https://nitaybl.gitbook.io/kite)**
 
 ## 🧩 How It Works
 
@@ -86,7 +86,7 @@ luatools doctor                 Diagnose issues
 
 ## 🤝 Contributing
 
-See the [Contributing Guide](https://nitaybl.gitbook.io/luatools-modloader/contributing).
+See the [Contributing Guide](https://nitaybl.gitbook.io/kite/contributing).
 
 ---
 

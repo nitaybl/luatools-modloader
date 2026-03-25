@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    LuaTools Mod Loader - PowerShell CLI
+    Kite - PowerShell CLI
 .DESCRIPTION
     Install, manage, and update LuaTools mods from the command line.
     Usage: luatools <command> [arguments]
@@ -23,7 +23,7 @@ $ErrorActionPreference = "Stop"
 $LUATOOLS_DIR = "C:\Program Files (x86)\Steam\plugins\luatools"
 $MODS_DIR = Join-Path $LUATOOLS_DIR "mods"
 $CONFIG_FILE = Join-Path $MODS_DIR "mods_config.json"
-$MODLOADER_REPO = "nitaybl/luatools-modloader"
+$MODLOADER_REPO = "nitaybl/kite"
 $FIXES_REPO = "nitaybl/luatools-fixes"
 $VERSION = "1.0.0"
 
@@ -402,7 +402,7 @@ function Show-Doctor {
 }
 
 function Install-ModLoader {
-    Write-Info "Installing LuaTools Mod Loader..."
+    Write-Info "Installing Kite..."
     
     if (!(Test-Path $LUATOOLS_DIR)) {
         Write-Fail "LuaTools not found at $LUATOOLS_DIR. Install LuaTools first!"
@@ -452,7 +452,7 @@ function Install-ModLoader {
 }
 
 function Uninstall-ModLoader {
-    Write-Info "Removing LuaTools Mod Loader..."
+    Write-Info "Removing Kite..."
     
     $jsFile = Join-Path $LUATOOLS_DIR "public\mod_loader.js"
     $pyFile = Join-Path $LUATOOLS_DIR "backend\mod_loader.py"

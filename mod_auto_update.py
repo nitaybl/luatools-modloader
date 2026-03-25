@@ -1,5 +1,5 @@
 """
-LuaTools Mod Loader - Auto Update Module
+Kite - Auto Update Module
 Checks GitHub releases for newer versions of the mod loader
 and individual mods, then applies updates silently.
 """
@@ -11,7 +11,7 @@ import zipfile
 import shutil
 import tempfile
 
-MODLOADER_REPO = "nitaybl/luatools-modloader"
+MODLOADER_REPO = "nitaybl/kite"
 GITHUB_API = "https://api.github.com"
 
 LUATOOLS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')

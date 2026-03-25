@@ -31,7 +31,7 @@ LuaToolsMods.registerMod({
 - `setTimeout` for waiting for overlay render
 - Wiring click handlers to Millennium's `OpenExternalUrl`
 
-→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/credits-mod)
+→ [Full source](https://github.com/nitaybl/kite/tree/main/mods/credits-mod)
 
 ---
 
@@ -69,7 +69,7 @@ LuaToolsMods.registerMod({
 - `@keyframes` animations via injected CSS
 - Loading external fonts via CSS `@import`
 
-→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/cyberpunk-theme)
+→ [Full source](https://github.com/nitaybl/kite/tree/main/mods/cyberpunk-theme)
 
 ---
 
@@ -107,7 +107,7 @@ LuaToolsMods.registerMod({
 - Dynamic DOM element creation with hover effects
 - Responsive flex layout
 
-→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/quick-actions)
+→ [Full source](https://github.com/nitaybl/kite/tree/main/mods/quick-actions)
 
 ---
 
@@ -147,7 +147,7 @@ LuaToolsMods.registerMod({
 - Custom CSS animations (slide-in from right)
 - Rich toast with multi-line content and gradient backgrounds
 
-→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/fix-notifications)
+→ [Full source](https://github.com/nitaybl/kite/tree/main/mods/fix-notifications)
 
 ---
 
@@ -186,4 +186,4 @@ LuaToolsMods.registerMod({
 - Calling LuaTools backend methods (`GetGameInstallPath`)
 - Dynamic card UI with hover state transitions
 
-→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/game-stats)
+→ [Full source](https://github.com/nitaybl/kite/tree/main/mods/game-stats)

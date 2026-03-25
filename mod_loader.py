@@ -1,5 +1,5 @@
 """
-LuaTools Mod Loader - Backend Module
+Kite - Backend Module
 Scans the mods/ directory, serves mod files to the frontend,
 and provides enable/disable toggles via mods_config.json.
 """

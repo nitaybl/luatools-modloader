@@ -11,7 +11,7 @@
 ### Option 1: One-Line PowerShell Install
 
 ```powershell
-irm https://raw.githubusercontent.com/nitaybl/luatools-modloader/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/nitaybl/kite/main/install.ps1 | iex
 ```
 
 This installs the `luatools` CLI globally. Then install the mod loader:
@@ -22,7 +22,7 @@ luatools install
 
 ### Option 2: Manual Install
 
-1. Download the [latest release](https://github.com/nitaybl/luatools-modloader/releases)
+1. Download the [latest release](https://github.com/nitaybl/kite/releases)
 2. Copy `mod_loader.js` to `Steam/plugins/luatools/public/`
 3. Copy `mod_loader.py` and `mod_auto_update.py` to `Steam/plugins/luatools/backend/`
 4. Create a `mods/` folder in `Steam/plugins/luatools/`
@@ -49,7 +49,7 @@ You should see all green checkmarks:
 
 ```powershell
 # Install the credits mod that ships with the mod loader
-luatools mod install https://github.com/nitaybl/luatools-modloader
+luatools mod install https://github.com/nitaybl/kite
 ```
 
 Or manually copy a mod folder into `Steam/plugins/luatools/mods/`.

@@ -1,4 +1,4 @@
-# LuaTools Mod Loader
+# Kite
 
 > Extend LuaTools with community mods — without touching the core plugin.
 

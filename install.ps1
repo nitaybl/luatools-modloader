@@ -1,13 +1,13 @@
 <#
 .SYNOPSIS
-    One-liner installer for LuaTools Mod Loader CLI
+    One-liner installer for Kite CLI
 .DESCRIPTION
-    Run: irm https://raw.githubusercontent.com/nitaybl/luatools-modloader/main/install.ps1 | iex
+    Run: irm https://raw.githubusercontent.com/nitaybl/kite/main/install.ps1 | iex
 #>
 
 $ErrorActionPreference = "Stop"
 Write-Host ""
-Write-Host "  Installing LuaTools Mod Loader CLI..." -ForegroundColor Cyan
+Write-Host "  Installing Kite CLI..." -ForegroundColor Cyan
 Write-Host ""
 
 $installDir = Join-Path $env:LOCALAPPDATA "LuaTools"
@@ -19,7 +19,7 @@ if (!(Test-Path $installDir)) {
 }
 
 # Download the CLI script
-$url = "https://raw.githubusercontent.com/nitaybl/luatools-modloader/main/luatools.ps1"
+$url = "https://raw.githubusercontent.com/nitaybl/kite/main/luatools.ps1"
 Write-Host "  Downloading CLI from GitHub..." -ForegroundColor Yellow
 Invoke-WebRequest -Uri $url -OutFile $scriptPath -UseBasicParsing
 Write-Host "  [+] CLI downloaded to: $scriptPath" -ForegroundColor Green

@@ -7,6 +7,6 @@
     "main": "mod.js",
     "style": "style.css",
     "hooks": ["onOverlayOpen"],
-    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "repository": "https://github.com/nitaybl/kite",
     "minLuaToolsVersion": "7.1"
 }

@@ -17,7 +17,7 @@ Follow the [Mod Development Guide](mod-development.md) to build and test your mo
 
 ### Step 3: Get Listed
 
-Open an [issue](https://github.com/nitaybl/luatools-modloader/issues) on the mod loader repo with:
+Open an [issue](https://github.com/nitaybl/kite/issues) on the mod loader repo with:
 - Your mod's GitHub URL
 - A brief description
 - A screenshot (if visual)
@@ -28,7 +28,7 @@ We'll review it and add it to the community mod directory.
 
 ### Reporting Bugs
 
-Open a [GitHub issue](https://github.com/nitaybl/luatools-modloader/issues) with:
+Open a [GitHub issue](https://github.com/nitaybl/kite/issues) with:
 - LuaTools version
 - Mod Loader version (`luatools version`)
 - Steps to reproduce

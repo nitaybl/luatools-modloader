@@ -8,7 +8,7 @@
             "description": "Adds contributor credits panel to the overlay.",
             "author": "nitaybl",
             "version": "1.0.0",
-            "repository": "https://github.com/nitaybl/luatools-modloader",
+            "repository": "https://github.com/nitaybl/kite",
             "tags": ["ui", "credits"],
             "downloads": 0
         },
@@ -18,7 +18,7 @@
             "description": "Neon visual overhaul with animated glow borders and Orbitron font.",
             "author": "nitaybl",
             "version": "1.0.0",
-            "repository": "https://github.com/nitaybl/luatools-modloader",
+            "repository": "https://github.com/nitaybl/kite",
             "tags": ["theme", "ui", "visual"],
             "downloads": 0
         },
@@ -28,7 +28,7 @@
             "description": "Copy AppID, open install folder, SteamDB, and PCGamingWiki buttons.",
             "author": "nitaybl",
             "version": "1.0.0",
-            "repository": "https://github.com/nitaybl/luatools-modloader",
+            "repository": "https://github.com/nitaybl/kite",
             "tags": ["utility", "buttons", "tools"],
             "downloads": 0
         },
@@ -38,7 +38,7 @@
             "description": "Animated toast alerts with sound feedback for fix events.",
             "author": "nitaybl",
             "version": "1.0.0",
-            "repository": "https://github.com/nitaybl/luatools-modloader",
+            "repository": "https://github.com/nitaybl/kite",
             "tags": ["notifications", "audio", "alerts"],
             "downloads": 0
         },
@@ -48,7 +48,7 @@
             "description": "Real-time game info panel with install status, achievements, and playtime.",
             "author": "nitaybl",
             "version": "1.0.0",
-            "repository": "https://github.com/nitaybl/luatools-modloader",
+            "repository": "https://github.com/nitaybl/kite",
             "tags": ["stats", "info", "steam-api"],
             "downloads": 0
         }

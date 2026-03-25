@@ -6,6 +6,6 @@
     "description": "Shows desktop-style toast notifications when fixes are applied, failed, or downloaded. Includes sound feedback.",
     "main": "mod.js",
     "hooks": ["onFixApplied", "onFixFailed", "onDownloadStart", "onDownloadComplete"],
-    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "repository": "https://github.com/nitaybl/kite",
     "minLuaToolsVersion": "7.1"
 }
