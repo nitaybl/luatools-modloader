@@ -1,6 +1,6 @@
 # Example Mods
 
-The mod loader ships with 4 example mods. Use them as reference for building your own.
+The mod loader ships with 5 example mods. Use them as reference for building your own.
 
 ---
 
@@ -8,7 +8,7 @@ The mod loader ships with 4 example mods. Use them as reference for building you
 
 **ID:** `credits-mod` • **Author:** nitaybl
 
-Adds a contributor credits panel to the LuaTools fix overlay with clickable GitHub profile links.
+Adds a contributor credits panel to the LuaTools fix overlay with a clickable GitHub profile link.
 
 **Hooks used:** `onOverlayOpen`
 
@@ -19,7 +19,7 @@ LuaToolsMods.registerMod({
         var panel = LuaToolsMods.createPanel({
             id: 'credits',
             title: '💜 Credits',
-            content: 'Only possible thanks to ShayneVi & nitaybl 💜'
+            content: 'Made by nitaybl 💜'
         });
         data.overlay.appendChild(panel);
     }
@@ -148,3 +148,42 @@ LuaToolsMods.registerMod({
 - Rich toast with multi-line content and gradient backgrounds
 
 → [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/fix-notifications)
+
+---
+
+## 5. Game Stats Tracker
+
+**ID:** `game-stats` • **Author:** nitaybl
+
+Shows a 2×2 grid of stat cards in the overlay: AppID, install status, achievement count, and playtime. Fetches real data from the Steam Store API and LuaTools backend.
+
+**Hooks used:** `onOverlayOpen`
+
+```js
+LuaToolsMods.registerMod({
+    id: 'game-stats',
+    onOverlayOpen: function(data) {
+        var stats = [
+            { icon: '🎮', label: 'AppID', value: String(data.appid) },
+            { icon: '📦', label: 'Status', value: 'Checking...' },
+            { icon: '⏱️', label: 'Playtime', value: 'Loading...' },
+            { icon: '🏆', label: 'Achievements', value: 'Loading...' }
+        ];
+        // Render 2x2 grid with hover effects
+        // Fetch from Steam Store API for achievements
+        fetch('https://store.steampowered.com/api/appdetails?appids=' + data.appid)
+            .then(function(r) { return r.json(); })
+            .then(function(apiData) {
+                // Update achievement count card
+            });
+    }
+});
+```
+
+**Techniques demonstrated:**
+- CSS Grid layout (`grid-template-columns: 1fr 1fr`)
+- Fetching data from Steam Store API
+- Calling LuaTools backend methods (`GetGameInstallPath`)
+- Dynamic card UI with hover state transitions
+
+→ [Full source](https://github.com/nitaybl/luatools-modloader/tree/main/mods/game-stats)

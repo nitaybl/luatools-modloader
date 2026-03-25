@@ -3,7 +3,7 @@
     "name": "LuaTools Credits",
     "version": "1.0.0",
     "author": "nitaybl",
-    "description": "Adds contributor credits to the LuaTools overlay. Only possible thanks to ShayneVi & nitaybl 💜",
+    "description": "Adds contributor credits to the LuaTools overlay. Made by nitaybl 💜",
     "main": "mod.js",
     "style": "style.css",
     "hooks": ["onOverlayOpen"],

@@ -3,243 +3,85 @@
 </p>
 
 <p align="center">
-  <strong>Extend LuaTools with community mods — without modifying the core plugin.</strong><br>
-  <em>Install mods, manage them from PowerShell, auto-update, and build your own.</em>
-</p>
-
-<p align="center">
-  <a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-00ffff?style=for-the-badge" alt="Quick Start"></a>
-  <a href="#-mod-development"><img src="https://img.shields.io/badge/Dev_Docs-8b5cf6?style=for-the-badge" alt="Dev Docs"></a>
-  <a href="#-cli-reference"><img src="https://img.shields.io/badge/CLI_Reference-ff6b6b?style=for-the-badge" alt="CLI"></a>
+  <a href="https://github.com/nitaybl/luatools-modloader/stargazers"><img src="https://img.shields.io/github/stars/nitaybl/luatools-modloader?style=for-the-badge&color=00ffff&labelColor=0d1117" alt="Stars"></a>
+  <a href="https://github.com/nitaybl/luatools-modloader/releases"><img src="https://img.shields.io/github/v/release/nitaybl/luatools-modloader?style=for-the-badge&color=8b5cf6&labelColor=0d1117" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/nitaybl/luatools-modloader?style=for-the-badge&color=4ade80&labelColor=0d1117" alt="License"></a>
 </p>
 
 ---
+
+> ⚠️ **USE AT YOUR OWN RISK.** This is an unofficial community project. Not affiliated with, endorsed by, or supported by Valve, Steam, or the original LuaTools developers. No warranty of any kind.
+
+> 🛡️ **MOD SAFETY.** We do **NOT** review, verify, or guarantee the safety of third-party mods. Always inspect source code before installing. Scan files for malware. Only install mods from sources you trust. Never install mods that ask for your credentials.
+
+> 🚫 **NO SUPPORT.** We are **not responsible** for providing support for third-party mods. If a mod breaks your setup, use `luatools mod disable <mod-id>` or `luatools uninstall` to revert.
+
+---
+
+<p align="center">
+  <strong>Extend LuaTools with community mods — without modifying the core plugin.</strong>
+</p>
 
 ## ⚡ Quick Start
 
-### One-Line Install
-
 ```powershell
 irm https://raw.githubusercontent.com/nitaybl/luatools-modloader/main/install.ps1 | iex
-```
-
-Then install the mod loader onto your existing LuaTools:
-
-```powershell
 luatools install
 ```
 
-That's it. Restart Steam and your mods are live.
+Restart Steam. Done.
 
-### Install a Mod
+## 📖 Documentation
 
-```powershell
-# From GitHub
-luatools mod install https://github.com/someone/cool-mod
-
-# From local folder
-luatools mod install C:\path\to\my-mod
-
-# List installed mods
-luatools mod list
-
-# Toggle mods on/off
-luatools mod enable my-mod
-luatools mod disable my-mod
-```
-
----
+Full docs available at **[GitBook →](https://nitaybl.gitbook.io/luatools-modloader)**
 
 ## 🧩 How It Works
 
-The mod loader installs **on top of** LuaTools as a lightweight layer. It adds two files:
-
-| File | Location | Purpose |
-|------|----------|---------|
-| `mod_loader.js` | `public/` | Scans & executes mods in sandboxed scopes |
-| `mod_loader.py` | `backend/` | Serves mod files to the frontend |
-
-Mods live in `Steam/plugins/luatools/mods/`. Each mod is either:
-- A **folder** with `manifest.json` + `mod.js` + optional `style.css`
-- A **single `.js` file** for simple mods
-
-**Core LuaTools is never modified.** Uninstalling the mod loader leaves LuaTools exactly as it was.
+The mod loader installs **on top of** LuaTools. It adds two files — core LuaTools is **never modified**. Uninstalling leaves your setup exactly as it was.
 
 ```
 Steam/plugins/luatools/
-├── public/
-│   ├── luatools.js          ← untouched core
-│   └── mod_loader.js        ← mod loader (removable)
-├── backend/
-│   ├── main.py              ← untouched core
-│   ├── mod_loader.py        ← mod loader backend (removable)
-│   └── mod_auto_update.py   ← auto-update checker (removable)
-├── mods/                    ← your mods go here
-│   ├── credits-mod/
-│   │   ├── manifest.json
-│   │   ├── mod.js
-│   │   └── style.css
-│   └── mods_config.json     ← enable/disable state
-└── plugin.json
+├── public/luatools.js         ← untouched
+├── public/mod_loader.js       ← mod loader (removable)
+├── backend/mod_loader.py      ← backend (removable)
+├── backend/mod_auto_update.py ← auto-updater (removable)
+└── mods/                      ← your mods go here
+    ├── credits-mod/
+    ├── cyberpunk-theme/
+    ├── quick-actions/
+    ├── fix-notifications/
+    └── game-stats/
 ```
 
----
-
-## 🔧 Mod Development
-
-### manifest.json
-
-```json
-{
-    "id": "my-awesome-mod",
-    "name": "My Awesome Mod",
-    "version": "1.0.0",
-    "author": "YourName",
-    "description": "Does something awesome",
-    "main": "mod.js",
-    "style": "style.css",
-    "hooks": ["onOverlayOpen", "onFixApplied"],
-    "repository": "https://github.com/you/my-awesome-mod",
-    "minLuaToolsVersion": "7.1"
-}
-```
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `id` | ✅ | Unique identifier (lowercase, hyphens ok) |
-| `name` | ✅ | Display name |
-| `version` | ✅ | SemVer version string |
-| `author` | ✅ | Your name or username |
-| `main` | ✅ | Entry JS file |
-| `style` | ❌ | Optional CSS file |
-| `hooks` | ❌ | Lifecycle hooks your mod uses |
-| `repository` | ❌ | GitHub URL (enables auto-updates) |
-| `minLuaToolsVersion` | ❌ | Minimum LuaTools version required |
-
-### Lifecycle Hooks
-
-```js
-LuaToolsMods.registerMod({
-    id: 'my-mod',
-    version: '1.0.0',
-
-    // Fired when the LuaTools fix overlay opens for a game
-    onOverlayOpen: function(data) {
-        // data.overlay - the DOM element
-        // data.appid - Steam App ID
-        // data.gameName - game name string
-    },
-
-    // Fired when overlay closes
-    onOverlayClose: function(data) {},
-
-    // Fired after a fix is successfully applied
-    onFixApplied: function(data) {
-        // data.appid, data.fixType
-    },
-
-    // Fired when a fix fails
-    onFixFailed: function(data) {
-        // data.appid, data.error
-    },
-
-    // Fired when LuaTools detects a Steam game page
-    onGameDetected: function(data) {
-        // data.appid, data.gameName
-    },
-
-    // Fired when a download begins
-    onDownloadStart: function(data) {},
-
-    // Fired when a download completes
-    onDownloadComplete: function(data) {}
-});
-```
-
-### Utility API
-
-```js
-// Inject custom CSS
-LuaToolsMods.injectCSS('my-mod', '.my-class { color: cyan; }');
-
-// Create a styled panel
-var panel = LuaToolsMods.createPanel({
-    id: 'my-panel',
-    title: 'My Panel',
-    content: '<p>Hello from my mod!</p>'
-});
-overlay.appendChild(panel);
-
-// Show a toast notification
-LuaToolsMods.showToast('Fix applied successfully!', 3000);
-
-// Check registered mods
-var allMods = LuaToolsMods.getMods();
-var exists = LuaToolsMods.hasMod('some-mod-id');
-```
-
-### Auto-Updates for Your Mod
-
-If your mod's `manifest.json` includes a `repository` field pointing to a GitHub repo, the mod loader will automatically check for newer releases. Tag your releases with SemVer versions (e.g., `v1.0.1`).
-
----
-
-## 💻 CLI Reference
+## 💻 CLI
 
 ```
-luatools <command> [arguments]
-
-MODLOADER:
-  install                    Install the mod loader onto LuaTools
-  uninstall                  Remove the mod loader (keeps LuaTools intact)
-
-MODS:
-  mod install <url|path>     Install a mod from GitHub or local path
-  mod remove <mod-id>        Uninstall a mod
-  mod list                   List all installed mods
-  mod enable <mod-id>        Enable a mod
-  mod disable <mod-id>       Disable a mod
-
-FIXES:
-  fix apply <appid>          Request auto-fix for a Steam game
-
-UTILITY:
-  doctor                     Diagnose common issues
-  version                    Show version info
-  help                       Show help
+luatools install                Install mod loader onto LuaTools
+luatools uninstall              Remove mod loader (LuaTools untouched)
+luatools mod install <url>      Install a mod from GitHub
+luatools mod remove <id>        Uninstall a mod
+luatools mod list               List installed mods
+luatools mod enable/disable     Toggle mods
+luatools fix apply <appid>      Request auto-fix for a game
+luatools doctor                 Diagnose issues
 ```
 
----
+## 🎨 Example Mods
 
-## ⚠️ Important Disclaimers
-
-> **USE AT YOUR OWN RISK.** This is an unofficial community project and is not affiliated with, endorsed by, or supported by Valve, Steam, or the original LuaTools developers.
-
-> **NO WARRANTY.** This software is provided "as is", without warranty of any kind, express or implied. The authors are not responsible for any damage, data loss, or account issues that may result from using this software.
-
-> **MOD SAFETY.** We do **NOT** review, verify, or guarantee the safety of third-party mods. Before installing any mod:
-> - 🔍 **Always inspect the source code** before installing
-> - 🛡️ **Scan files for malware** using your antivirus
-> - ⚠️ **Only install mods from sources you trust**
-> - 🚫 **Never install mods that ask for your credentials**
-
-> **SUPPORT.** We are **not responsible** for providing support for third-party mods. If a mod breaks your setup, use `luatools mod disable <mod-id>` or `luatools uninstall` to revert.
-
----
+| Mod | Description |
+|-----|-------------|
+| **Credits** | Contributor credits panel with clickable GitHub links |
+| **Cyberpunk Theme** | Neon gradients, animated glow borders, Orbitron font |
+| **Quick Actions** | Copy AppID, Open Folder, SteamDB, PCGamingWiki buttons |
+| **Fix Notifications** | Animated toast alerts with sound feedback |
+| **Game Stats** | Real-time game info panel (install status, achievements, playtime) |
 
 ## 🤝 Contributing
 
-Want to share your mod with the community?
-
-1. Create a GitHub repo for your mod
-2. Include a proper `manifest.json` with all required fields
-3. Tag releases with SemVer versions
-4. Open an issue on this repo to get listed in the community mod directory
+See the [Contributing Guide](https://nitaybl.gitbook.io/luatools-modloader/contributing).
 
 ---
 
-## 📄 License
-
-MIT License. See [LICENSE](LICENSE) for details.
-
----
+<p align="center">
+  Made by <a href="https://github.com/nitaybl">nitaybl</a> 💜
+</p>

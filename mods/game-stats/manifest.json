@@ -1,0 +1,11 @@
+{
+    "id": "game-stats",
+    "name": "Game Stats Tracker",
+    "version": "1.0.0",
+    "author": "nitaybl",
+    "description": "Shows real-time game stats in the overlay: install size, last played date, achievement count, and playtime from Steam.",
+    "main": "mod.js",
+    "hooks": ["onOverlayOpen"],
+    "repository": "https://github.com/nitaybl/luatools-modloader",
+    "minLuaToolsVersion": "7.1"
+}
