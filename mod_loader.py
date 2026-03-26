@@ -123,3 +123,15 @@ def ToggleMod(mod_id: str, enabled: bool):
 def GetModLoaderVersion():
     """Returns the mod loader version"""
     return json.dumps({'version': '1.0.0', 'modsDir': MODS_DIR})
+
+def RestartSteam():
+    """Force restart the active Steam client securely."""
+    import subprocess
+    subprocess.Popen('taskkill /IM steam.exe /F >nul 2>&1 && start steam://open/main', shell=True)
+    return json.dumps({'success': True})
+
+def TerminateSteam():
+    """Force terminate the active Steam client securely."""
+    import subprocess
+    subprocess.Popen('taskkill /IM steam.exe /F >nul 2>&1', shell=True)
+    return json.dumps({'success': True})
