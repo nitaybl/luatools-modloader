@@ -482,8 +482,8 @@ function Install-ModLoader {
     }
     
     # Cleanup
-    Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
-    Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+    if ($null -ne $tempZip) { Remove-Item $tempZip -Force -ErrorAction SilentlyContinue }
+    if ($null -ne $tempDir) { Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue }
     
     Write-Success "Mod Loader installed! Restart Steam to activate."
     Write-Info "Mods directory: $MODS_DIR"
