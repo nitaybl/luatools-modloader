@@ -1,0 +1,17 @@
+# Ultimate Kite CLI & LuaTools Diagnosis & Fix Request
+
+## Context
+- **Plugin Location**: `C:\Program Files (x86)\Steam\plugins\luatools`
+- **CLI Location**: `C:\Users\nitaybl\AppData\Local\KiteLoader\kiteloader.ps1`
+- **Main Backend Entry**: `C:\Program Files (x86)\Steam\plugins\luatools\backend\main.py`
+- **Plugin Logs**: `C:\Program Files (x86)\Steam\ext\logs\luatools_log.log`
+- **Millennium Environment**: v2.35.0 (Python 3.11 sandboxed)
+
+## Recent Stability Patches
+1. **Silenced Curl**: Added `CREATE_NO_WINDOW` (0x08000000) to all `subprocess` calls in `http_client.py` to stop console pop-ups.
+2. **Purged HTTPX**: Removed the `httpx` library dependency entirely from `downloads.py` and `http_client.py`. Replaced with a `NativeClient` using `subprocess` calling `curl.exe`.
+3. **Fixed Exception Logic**: Repaired error-handling in `downloads.py` that was trying to access `exc.response` (an `httpx` attribute) on standard Python exceptions, which was causing fatal Steam crashes.
+4. **CLI Null Check**: Fixed a `ParameterBindingValidationException` in `kiteloader.ps1` by guarding cleanup calls against null paths.
+
+## Current Objective
+Please perform a deep architectural review of the `backend/` directory. Ensure that NO part of the code still expects `httpx` or `requests` style objects. Verify that all network calls are either via `urllib` or the new `NativeClient` (curl wrapper). Pay special attention to the transition between UI-triggered events and backend processing to ensure nothing triggers a Steam watchdog timeout (typically 1-2 seconds for synchronous calls). Reason through the code 3 times to ensure 100% syntactic and logic reliability.

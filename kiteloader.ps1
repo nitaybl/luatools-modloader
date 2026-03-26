@@ -440,13 +440,21 @@ function Install-ModLoader {
         Write-Success "Installed mod_loader.js to Millennium Dist"
     }
     
-    # Copy mod_loader.py to backend/main.py
-    $pySource = Join-Path $sourceDir "mod_loader.py"
+    # Copy entire backend directory
+    $backendSrc = Join-Path $sourceDir "backend"
+    if (Test-Path $backendSrc) {
+        $backendDst = Join-Path $LUATOOLS_DIR "backend"
+        if (!(Test-Path $backendDst)) { New-Item -ItemType Directory -Path $backendDst -Force | Out-Null }
+        Copy-Item -Path "$backendSrc\*" -Destination $backendDst -Recurve -Force
+        Write-Success "Installed backend module"
+    }
+
+    # Copy mod_auto_update.py to backend/main.py (Compatibility)
+    $pySource = Join-Path $sourceDir "mod_auto_update.py"
     if (Test-Path $pySource) {
         $backendDir = Join-Path $LUATOOLS_DIR "backend"
-        if (!(Test-Path $backendDir)) { New-Item -ItemType Directory -Path $backendDir -Force | Out-Null }
         Copy-Item $pySource (Join-Path $backendDir "main.py") -Force
-        Write-Success "Installed backend/main.py"
+        Write-Success "Installed main backend entry point"
     }
     
     # Create mods/ dir with example mods
