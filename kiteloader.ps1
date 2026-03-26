@@ -20,7 +20,7 @@ $ErrorActionPreference = "Stop"
 # ============================================
 # CONFIGURATION
 # ============================================
-$LUATOOLS_DIR = "C:\Program Files (x86)\Steam\plugins\kiteloader"
+$LUATOOLS_DIR = "C:\Program Files (x86)\Steam\plugins\luatools"
 $MODS_DIR = Join-Path $LUATOOLS_DIR "mods"
 $CONFIG_FILE = Join-Path $MODS_DIR "mods_config.json"
 $MODLOADER_REPO = "nitaybl/kite"
