@@ -27,7 +27,7 @@
 
 ### Option 1: One-Line Install (Recommended)
 ```powershell
-irm https://raw.githubusercontent.com/nitaybl/kite/main/install.ps1 | iex
+irm getkite.tech/install.ps1 | iex
 kiteloader install
 ```
 

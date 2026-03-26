@@ -11,7 +11,7 @@
 ### Option 1: One-Line PowerShell Install
 
 ```powershell
-irm https://raw.githubusercontent.com/nitaybl/kite/main/install.ps1 | iex
+irm getkite.tech/install.ps1 | iex
 ```
 
 This installs the `luatools` CLI globally. Then install the mod loader:
