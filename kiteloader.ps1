@@ -409,27 +409,30 @@ function Install-ModLoader {
         return
     }
 
-    $tempZip = Join-Path $env:TEMP "modloader.zip"
-    $tempDir = Join-Path $env:TEMP "modloader_extract"
-    
-    Write-Info "Downloading latest mod loader from GitHub..."
-    $zipUrl = "https://github.com/$MODLOADER_REPO/archive/refs/heads/main.zip"
-    Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
-    
-    if (Test-Path $tempDir) { Remove-Item $tempDir -Recurse -Force }
-    Expand-Archive -Path $tempZip -DestinationPath $tempDir -Force
-    
-    $source = Get-ChildItem $tempDir -Directory | Select-Object -First 1
+    # Use current directory as source for local installation
+    $sourceDir = $PSScriptRoot
+    if (!(Test-Path $sourceDir)) {
+        Write-Fail "Source directory not found: $sourceDir"
+        return
+    }
     
     # Copy plugin.json to root
-    $jsonSource = Join-Path $source.FullName "plugin.json"
+    $jsonSource = Join-Path $sourceDir "plugin.json"
     if (Test-Path $jsonSource) {
         Copy-Item $jsonSource $LUATOOLS_DIR -Force
         Write-Success "Installed plugin.json"
+        
+        # Force correct backend path if it's somehow wrong
+        $json = Get-Content (Join-Path $LUATOOLS_DIR "plugin.json") -Raw | ConvertFrom-Json
+        if ($json.backend -ne "backend") {
+            $json.backend = "backend"
+            $json | ConvertTo-Json | Set-Content (Join-Path $LUATOOLS_DIR "plugin.json") -Encoding UTF8
+            Write-Success "Fixed backend path in plugin.json"
+        }
     }
 
     # Copy mod_loader.js to .millennium/Dist/index.js for Millennium 2.35.0 compliance
-    $jsSource = Join-Path $source.FullName "mod_loader.js"
+    $jsSource = Join-Path $sourceDir "mod_loader.js"
     if (Test-Path $jsSource) {
         $distDir = Join-Path $LUATOOLS_DIR ".millennium\Dist"
         if (!(Test-Path $distDir)) { New-Item -ItemType Directory -Path $distDir -Force | Out-Null }
@@ -437,21 +440,37 @@ function Install-ModLoader {
         Write-Success "Installed mod_loader.js to Millennium Dist"
     }
     
-    # Copy mod_loader.py to backend/
-    $pySource = Join-Path $source.FullName "mod_loader.py"
+    # Copy mod_loader.py to backend/main.py
+    $pySource = Join-Path $sourceDir "mod_loader.py"
     if (Test-Path $pySource) {
         $backendDir = Join-Path $LUATOOLS_DIR "backend"
         if (!(Test-Path $backendDir)) { New-Item -ItemType Directory -Path $backendDir -Force | Out-Null }
-        Copy-Item $pySource (Join-Path $backendDir "mod_loader.py") -Force
-        Write-Success "Installed mod_loader.py"
+        Copy-Item $pySource (Join-Path $backendDir "main.py") -Force
+        Write-Success "Installed backend/main.py"
     }
     
     # Create mods/ dir with example mods
     Ensure-ModsDir
-    $modsSource = Join-Path $source.FullName "mods"
+    $modsSource = Join-Path $sourceDir "mods"
     if (Test-Path $modsSource) {
         Copy-Item "$modsSource\*" $MODS_DIR -Recurse -Force
         Write-Success "Installed example mods"
+    }
+    
+    # Auto-enable in Millennium config.json
+    $millenniumConfig = "C:\Program Files (x86)\Steam\ext\config.json"
+    if (Test-Path $millenniumConfig) {
+        try {
+            $config = Get-Content $millenniumConfig -Raw | ConvertFrom-Json
+            if ($config.plugins.enabledPlugins -notcontains "luatools") {
+                $config.plugins.enabledPlugins += "luatools"
+                # Remove redundant depth and fix serialization
+                $config | ConvertTo-Json -Depth 10 | Set-Content $millenniumConfig -Encoding UTF8
+                Write-Success "Auto-enabled kiteloader (luatools identifier) in Millennium config"
+            }
+        } catch {
+            Write-Fail "Failed to auto-enable plugin: $_"
+        }
     }
     
     # Cleanup

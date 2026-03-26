@@ -1,8 +1,11 @@
 {
-    "name": "kiteloader",
+    "name": "luatools",
     "common_name": "Kite Loader",
     "description": "Hyper-modular plugin environment for Millennium",
     "author": "nitaybl",
     "version": "1.0.0",
-    "backend": "backend/mod_loader.py"
+    "backend": "backend",
+    "include": [
+        "public"
+    ]
 }
