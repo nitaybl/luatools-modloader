@@ -10,8 +10,8 @@ Write-Host ""
 Write-Host "  Installing Kite CLI..." -ForegroundColor Cyan
 Write-Host ""
 
-$installDir = Join-Path $env:LOCALAPPDATA "LuaTools"
-$scriptPath = Join-Path $installDir "luatools.ps1"
+$installDir = Join-Path $env:LOCALAPPDATA "KiteLoader"
+$scriptPath = Join-Path $installDir "kiteloader.ps1"
 
 # Create install directory
 if (!(Test-Path $installDir)) {
@@ -24,8 +24,8 @@ Write-Host "  Downloading CLI from GitHub..." -ForegroundColor Yellow
 Invoke-WebRequest -Uri $url -OutFile $scriptPath -UseBasicParsing
 Write-Host "  [+] CLI downloaded to: $scriptPath" -ForegroundColor Green
 
-# Create a batch wrapper so 'luatools' works from anywhere
-$batPath = Join-Path $installDir "luatools.cmd"
+# Create a batch wrapper so 'kiteloader' works from anywhere
+$batPath = Join-Path $installDir "kiteloader.cmd"
 $batContent = "@echo off`npowershell -ExecutionPolicy Bypass -File `"$scriptPath`" %*"
 Set-Content -Path $batPath -Value $batContent -Encoding ASCII
 
@@ -33,13 +33,13 @@ Set-Content -Path $batPath -Value $batContent -Encoding ASCII
 $currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
 if ($currentPath -notlike "*$installDir*") {
     [Environment]::SetEnvironmentVariable("PATH", "$currentPath;$installDir", "User")
-    Write-Host "  [+] Added to PATH. Restart your terminal to use 'luatools' globally." -ForegroundColor Green
+    Write-Host "  [+] Added to PATH. Restart your terminal to use 'kiteloader' globally." -ForegroundColor Green
 } else {
     Write-Host "  [*] Already in PATH." -ForegroundColor Yellow
 }
 
 Write-Host ""
 Write-Host "  Installation complete!" -ForegroundColor Green
-Write-Host "  Usage: luatools help" -ForegroundColor Cyan
+Write-Host "  Usage: kiteloader help" -ForegroundColor Cyan
 Write-Host "  First run: kiteloader install  (installs the mod loader onto LuaTools)" -ForegroundColor DarkGray
 Write-Host ""
