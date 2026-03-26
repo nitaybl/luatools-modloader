@@ -351,3 +351,58 @@
         });
     }, 500);
 })();
+
+
+// Kite Plugin Injection Loop
+function InitializeKitePlugins() {
+    console.log('[Kite Loader] Booting dynamic plugin scanner...');
+    if (typeof Millennium !== 'undefined' && typeof Millennium.callServerMethod === 'function') {
+        const pluginAlias = window.__KiteAlias || 'kiteloader';
+        Millennium.callServerMethod(pluginAlias, 'GetModList', {
+            contentScriptQuery: ''
+        }).then(function(res) {
+            try {
+                const mods = typeof res === 'string' ? JSON.parse(res) : res;
+                if (!Array.isArray(mods)) {
+                    if (pluginAlias === 'kiteloader') {
+                        window.__KiteAlias = 'luatools';
+                        InitializeKitePlugins();
+                    }
+                    return;
+                }
+                mods.forEach(function(mod) {
+                    if (mod.enabled) {
+                        console.log('[Kite Loader] Injecting sandbox for ' + mod.id);
+                        const mainFile = mod.main || 'main.js';
+                        Millennium.callServerMethod(window.__KiteAlias, 'GetModFile', {
+                            mod_id: mod.id,
+                            filename: mainFile,
+                            contentScriptQuery: ''
+                        }).then(function(fileRes) {
+                            try {
+                                const payload = typeof fileRes === 'string' ? fileRes : null;
+                                if (payload) {
+                                    const script = document.createElement('script');
+                                    script.textContent = payload;
+                                    document.head.appendChild(script);
+                                }
+                            } catch(e) {
+                                console.error('[Kite Loader] Failed to execute plugin ' + mod.id, e);
+                            }
+                        });
+                    }
+                });
+            } catch(e) {
+                console.error('[Kite Loader] Failed to parse mod list', e);
+            }
+        }).catch(function(e) {
+            if (pluginAlias === 'kiteloader') {
+                window.__KiteAlias = 'luatools';
+                InitializeKitePlugins();
+            } else {
+                console.error('[Kite Loader] Backend error reading plugins', e);
+            }
+        });
+    }
+}
+setTimeout(InitializeKitePlugins, 1500);
